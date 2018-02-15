@@ -140,26 +140,26 @@ void callback(char* topic, byte* payload, unsigned int length) {
   //Serial.println(alexa_topic);
   //Serial.println(alexa_command);
 
-  //if (alexa_id.equals(MyID)) {
-  //Handle all received msgs topic from MQTT
-  if (alexa_topic.endsWith("Topic_room")) {
-    digitalWrite(room_light, (alexa_command.endsWith("on") ? HIGH : LOW));
-  } else if (alexa_topic.endsWith("Topic_kitchen")) {
-    digitalWrite(kitchen_light, (alexa_command.endsWith("on") ? HIGH : LOW));
-  } else if (alexa_topic.endsWith("Topic_garage")) {
-    digitalWrite(garage_light, (alexa_command.endsWith("on") ? HIGH : LOW));
-  } else if (alexa_topic.endsWith("Topic_living room")) {
-    digitalWrite(livingroom_light, (alexa_command.endsWith("on") ? HIGH : LOW));
-  } else if (alexa_topic.endsWith("Topic_temperature")) {
-    SendTemperature();
-  } else if (alexa_topic.endsWith("Topic_humidity")) {
-    SendHumidity();
-  } else if (alexa_topic.endsWith("Topic_alarm")) {
-    digitalWrite(alarm, (alexa_command.endsWith("on") ? HIGH : LOW));
-  } else if (alexa_topic.endsWith("Topic_photo")) {
-    TakePhoto();
+  if (alexa_id.equals(MyID)) {
+      //Handle all received msgs topic from MQTT
+      if (alexa_topic.endsWith("Topic_room")) {
+        digitalWrite(room_light, (alexa_command.endsWith("on") ? HIGH : LOW));
+      } else if (alexa_topic.endsWith("Topic_kitchen")) {
+        digitalWrite(kitchen_light, (alexa_command.endsWith("on") ? HIGH : LOW));
+      } else if (alexa_topic.endsWith("Topic_garage")) {
+        digitalWrite(garage_light, (alexa_command.endsWith("on") ? HIGH : LOW));
+      } else if (alexa_topic.endsWith("Topic_living room")) {
+        digitalWrite(livingroom_light, (alexa_command.endsWith("on") ? HIGH : LOW));
+      } else if (alexa_topic.endsWith("Topic_temperature")) {
+        SendTemperature();
+      } else if (alexa_topic.endsWith("Topic_humidity")) {
+        SendHumidity();
+      } else if (alexa_topic.endsWith("Topic_alarm")) {
+        digitalWrite(alarm, (alexa_command.endsWith("on") ? HIGH : LOW));
+      } else if (alexa_topic.endsWith("Topic_photo")) {
+        TakePhoto();
+      }
   }
-  //}
 }
 
 //Reconnect to MQTT broker if lost connection
