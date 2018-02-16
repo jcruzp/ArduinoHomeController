@@ -1,6 +1,6 @@
 //
 // ArduinoHomeMQTT
-// v2.0
+// v2.1
 //
 // Copyright (C)2018 Jose Cruz. All right reserved
 // web: https://sites.google.com/view/raeiot/home
@@ -140,25 +140,25 @@ void callback(char* topic, byte* payload, unsigned int length) {
   //Serial.println(alexa_topic);
   //Serial.println(alexa_command);
 
-  if (alexa_id.equals(MyID)) {
-      //Handle all received msgs topic from MQTT
-      if (alexa_topic.endsWith("Topic_room")) {
-        digitalWrite(room_light, (alexa_command.endsWith("on") ? HIGH : LOW));
-      } else if (alexa_topic.endsWith("Topic_kitchen")) {
-        digitalWrite(kitchen_light, (alexa_command.endsWith("on") ? HIGH : LOW));
-      } else if (alexa_topic.endsWith("Topic_garage")) {
-        digitalWrite(garage_light, (alexa_command.endsWith("on") ? HIGH : LOW));
-      } else if (alexa_topic.endsWith("Topic_living room")) {
-        digitalWrite(livingroom_light, (alexa_command.endsWith("on") ? HIGH : LOW));
-      } else if (alexa_topic.endsWith("Topic_temperature")) {
-        SendTemperature();
-      } else if (alexa_topic.endsWith("Topic_humidity")) {
-        SendHumidity();
-      } else if (alexa_topic.endsWith("Topic_alarm")) {
-        digitalWrite(alarm, (alexa_command.endsWith("on") ? HIGH : LOW));
-      } else if (alexa_topic.endsWith("Topic_photo")) {
-        TakePhoto();
-      }
+   if (alexa_id.equals(MyID)) {
+    //Handle all received msgs topic from MQTT
+    if (alexa_topic.endsWith("Topic_room")) {
+      digitalWrite(room_light, (alexa_command.endsWith("on") ? LOW : HIGH));
+    } else if (alexa_topic.endsWith("Topic_kitchen")) {
+      digitalWrite(kitchen_light, (alexa_command.endsWith("on") ? LOW : HIGH));
+    } else if (alexa_topic.endsWith("Topic_garage")) {
+      digitalWrite(garage_light, (alexa_command.endsWith("on") ? LOW : HIGH ));
+    } else if (alexa_topic.endsWith("Topic_living room")) {
+      digitalWrite(livingroom_light, (alexa_command.endsWith("on") ? LOW : HIGH));
+    } else if (alexa_topic.endsWith("Topic_temperature")) {
+      SendTemperature();
+    } else if (alexa_topic.endsWith("Topic_humidity")) {
+      SendHumidity();
+    } else if (alexa_topic.endsWith("Topic_alarm")) {
+      digitalWrite(alarm, (alexa_command.endsWith("on") ? HIGH : LOW));
+    } else if (alexa_topic.endsWith("Topic_photo")) {
+      TakePhoto();
+    }
   }
 }
 
@@ -187,12 +187,18 @@ void setup()
   delay(2000);
   
   Serial.begin(115200);
-  Serial.println("Init Arduino Home Controller v2.0...");
+  Serial.println("Init Arduino Home Controller v2.1...");
+  
   pinMode(alarm, OUTPUT);
   pinMode(room_light, OUTPUT);
   pinMode(kitchen_light, OUTPUT);
   pinMode(garage_light, OUTPUT);
   pinMode(livingroom_light, OUTPUT);
+
+  digitalWrite(room_light, HIGH);
+  digitalWrite(kitchen_light, HIGH);
+  digitalWrite(garage_light, HIGH );
+  digitalWrite(livingroom_light, HIGH);
 
   // Define PubNub MQTT broker
   client.setServer(mqtt_server, mqtt_server_port);
